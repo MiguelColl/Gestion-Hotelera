@@ -1,0 +1,30 @@
+{% extends "base.njk" %}
+
+{% block titulo %} Listado | Limpiezas {% endblock %}
+
+{% block contenido %}
+
+    <h1>Limpiezas de habitación {{ habitacion.numero }}</h1>
+    {% if session and session.login %}
+        <a href="/limpiezas/nueva/{{ habitacion.id }}" class="btn btn-primary">Nueva limpieza</a>
+    {% endif %}
+    <div class="col">
+        {% if limpiezas %}
+            {% for limpieza in limpiezas %}
+                <div class="card shadow">
+                    <div class="card-body">
+                        <p class="card-text cursive">{{ limpieza.fecha | date }}</p>
+                        {% if limpieza.observaciones %}
+                            <p class="card-text">Observaciones: {{ limpieza.observaciones }}</p>
+                        {% else %}
+                            <p class="card-text cursive">Sin observaciones</p>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p class="text-muted cursive">No hay limpiezas en la habitación.</p>
+        {% endif %}
+    </div>
+    
+{% endblock %}
